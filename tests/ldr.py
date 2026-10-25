@@ -13,8 +13,8 @@ from constants import LDR1, LDR2  # noqa: E402
 if __name__ == "__main__":
     # The LDR modules provide their own pull-up resistors.
     sensors = [
-        DigitalInputDevice(LDR1, pull_up=None),
-        DigitalInputDevice(LDR2, pull_up=None),
+        DigitalInputDevice(LDR1, pull_up=None, active_state=False),
+        DigitalInputDevice(LDR2, pull_up=None, active_state=False),
     ]
     previous = [None, None]
 
