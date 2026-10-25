@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Botany Light Tracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='app.js') }}" defer></script>
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">BOTANY CONTROL</p>
+          <h1>Plant Light Tracker</h1>
+        </div>
+        <div class="connection" id="connection">
+          <span class="status-dot"></span>
+          <span id="connection-text">Connecting</span>
+        </div>
+      </header>
+
+      <section class="tracker-card card">
+        <div class="direction-labels" aria-hidden="true">
+          <span>LEFT</span>
+          <span>RIGHT</span>
+        </div>
+        <div class="track">
+          <span class="track-light left-light" id="left-light"></span>
+          <span class="track-line"></span>
+          <span class="track-light right-light" id="right-light"></span>
+        </div>
+
+        <div class="tracker-content">
+          <div class="plant-stage" id="plant-stage">
+            <div class="movement" id="movement">STOPPED</div>
+            <div class="plant" id="plant" role="img" aria-label="Plant orientation">
+              <span class="leaf leaf-one"></span>
+              <span class="leaf leaf-two"></span>
+              <span class="leaf leaf-three"></span>
+              <span class="stem"></span>
+              <span class="pot-rim"></span>
+              <span class="pot"></span>
+            </div>
+            <span class="side-pill" id="current-side">FRONT SIDE</span>
+          </div>
+
+          <div class="primary-stat">
+            <p>TIME UNDER LIGHT</p>
+            <strong id="exposure-time">0:00</strong>
+            <span>Next rotation in <b id="next-turn">--:--</b></span>
+          </div>
+        </div>
+
+        <div class="sensor-row">
+          <div class="sensor">
+            <span class="sensor-indicator" id="left-indicator"></span>
+            <div><small>GPIO 5</small><b>Left LDR</b></div>
+            <strong id="left-value">0</strong>
+          </div>
+          <div class="sensor">
+            <span class="sensor-indicator" id="right-indicator"></span>
+            <div><small>GPIO 6</small><b>Right LDR</b></div>
+            <strong id="right-value">0</strong>
+          </div>
+          <div class="sensor">
+            <span class="servo-icon">↻</span>
+            <div><small>SERVO</small><b>Position</b></div>
+            <strong><span id="servo-angle">0</span>°</strong>
+          </div>
+        </div>
+      </section>
+
+      <section class="settings-card card">
+        <div>
+          <p class="eyebrow">SETTINGS</p>
+          <h2>Rotation schedule</h2>
+          <p class="description">
+            Choose how long each side of the plant faces the light before the
+            servo rotates it 180 degrees.
+          </p>
+        </div>
+        <form id="settings-form">
+          <label for="time-per-side">Time per side</label>
+          <div class="field-row">
+            <input
+              id="time-per-side"
+              name="time_per_side_minutes"
+              type="number"
+              min="0.1"
+              max="10080"
+              step="0.1"
+              required
+            >
+            <span>minutes</span>
+            <button type="submit">Save setting</button>
+          </div>
+          <p class="form-message" id="form-message" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <p class="error-banner" id="hardware-error" hidden></p>
+    </main>
+  </body>
+</html>
