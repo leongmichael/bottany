@@ -14,7 +14,7 @@ from gpiozero import OutputDevice, PWMOutputDevice
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from constants import ENA1, IN1, IN2  # noqa: E402
 
-SPEED = 0.5  # From 0.0 to 1.0
+SPEED = 1  # From 0.0 to 1.0
 
 
 if __name__ == "__main__":
