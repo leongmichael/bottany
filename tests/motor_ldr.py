@@ -1,4 +1,4 @@
-"""Run motor 1 forward while the digital LDR on GPIO 6 reads HIGH."""
+"""Run motor 1 forward while the active-low LDR on GPIO 6 is triggered."""
 
 import sys
 import time
@@ -13,14 +13,14 @@ SPEED = 1.0  # From 0.0 to 1.0
 
 
 if __name__ == "__main__":
-    ldr = DigitalInputDevice(LDR2, pull_up=None, active_state=True)
+    ldr = DigitalInputDevice(LDR2, pull_up=None, active_state=False)
     enable = PWMOutputDevice(ENA1, initial_value=0)
     input_1 = OutputDevice(IN1, initial_value=False)
     input_2 = OutputDevice(IN2, initial_value=False)
     previous_state = None
 
     try:
-        print(f"Motor runs while LDR on GPIO {LDR2} reads 1. Press Ctrl+C to stop.")
+        print(f"Motor runs while LDR on GPIO {LDR2} is triggered. Press Ctrl+C to stop.")
         input_1.on()
         input_2.off()
 
