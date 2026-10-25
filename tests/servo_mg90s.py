@@ -1,9 +1,14 @@
+import sys
 import time
+from pathlib import Path
+
 import pigpio
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from constants import IN_S
 
 
-# Connect PWM line to BCM 18 (Physical Pin 12)
+# Servo signal pin is defined centrally in constants.py.
 SERVO_PIN = IN_S
 
 pi = pigpio.pi()
