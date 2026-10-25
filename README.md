@@ -12,6 +12,7 @@ servo rotates the plant 180 degrees on a configurable schedule.
 - The servo alternates between 0° and 180° after the configured time per side.
 - The dashboard shows live sensors, motion, orientation, exposure time, and the
   countdown to the next turn.
+- Rotation time can be entered in either minutes or seconds.
 
 The LDR modules are treated as active-low. If their LEDs and dashboard values
 behave in reverse, adjust each module's threshold potentiometer first.

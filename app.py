@@ -14,7 +14,7 @@ from controller import PlantController
 BASE_DIR = Path(__file__).resolve().parent
 SETTINGS_PATH = BASE_DIR / "settings.json"
 DEFAULT_SETTINGS = {"time_per_side_minutes": 60.0}
-MIN_INTERVAL_MINUTES = 0.1
+MIN_INTERVAL_MINUTES = 1 / 60  # One second
 MAX_INTERVAL_MINUTES = 10080.0
 
 
@@ -71,10 +71,7 @@ def create_app(
 
         if not MIN_INTERVAL_MINUTES <= minutes <= MAX_INTERVAL_MINUTES:
             return jsonify(
-                error=(
-                    f"Time per side must be between {MIN_INTERVAL_MINUTES} "
-                    f"and {MAX_INTERVAL_MINUTES:g} minutes"
-                )
+                error="Time per side must be between 1 second and 7 days"
             ), 400
 
         new_settings = {"time_per_side_minutes": minutes}

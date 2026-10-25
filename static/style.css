@@ -376,7 +376,8 @@ label {
   gap: 10px;
 }
 
-input {
+input,
+select {
   width: 120px;
   padding: 11px 12px;
   border: 1px solid var(--line);
@@ -387,9 +388,8 @@ input {
   font-weight: 700;
 }
 
-.field-row > span {
-  color: var(--muted);
-  font-size: 0.85rem;
+select {
+  width: auto;
 }
 
 button {

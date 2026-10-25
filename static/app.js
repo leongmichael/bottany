@@ -16,6 +16,7 @@ const elements = {
   hardwareError: document.querySelector("#hardware-error"),
   form: document.querySelector("#settings-form"),
   timePerSide: document.querySelector("#time-per-side"),
+  timeUnit: document.querySelector("#time-unit"),
   formMessage: document.querySelector("#form-message"),
 };
 
@@ -35,6 +36,28 @@ function formatDuration(totalSeconds) {
 
 function setActive(element, active) {
   element.classList.toggle("active", Boolean(active));
+}
+
+function setTimeInputUnit(unit, convertExisting = false) {
+  const input = elements.timePerSide;
+  const current = Number(input.value);
+
+  if (convertExisting && Number.isFinite(current)) {
+    input.value =
+      unit === "seconds"
+        ? Number((current * 60).toFixed(3))
+        : Number((current / 60).toFixed(3));
+  }
+
+  if (unit === "seconds") {
+    input.min = "1";
+    input.max = "604800";
+    input.step = "1";
+  } else {
+    input.min = "0.1";
+    input.max = "10080";
+    input.step = "0.1";
+  }
 }
 
 function renderStatus(status) {
@@ -67,7 +90,17 @@ function renderStatus(status) {
   );
 
   if (!settingLoaded) {
-    elements.timePerSide.value = status.interval_minutes;
+    if (status.interval_minutes < 0.1) {
+      elements.timeUnit.value = "seconds";
+      setTimeInputUnit("seconds");
+      elements.timePerSide.value = Number(
+        (status.interval_minutes * 60).toFixed(3),
+      );
+    } else {
+      elements.timePerSide.value = Number(
+        status.interval_minutes.toFixed(3),
+      );
+    }
     settingLoaded = true;
   }
 
@@ -90,24 +123,30 @@ async function refreshStatus() {
   }
 }
 
+elements.timeUnit.addEventListener("change", () => {
+  setTimeInputUnit(elements.timeUnit.value, true);
+});
+
 elements.form.addEventListener("submit", async (event) => {
   event.preventDefault();
   elements.formMessage.className = "form-message";
   elements.formMessage.textContent = "Saving…";
 
   try {
+    const enteredTime = Number(elements.timePerSide.value);
+    const minutes =
+      elements.timeUnit.value === "seconds" ? enteredTime / 60 : enteredTime;
     const response = await fetch("/api/settings", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        time_per_side_minutes: Number(elements.timePerSide.value),
+        time_per_side_minutes: minutes,
       }),
     });
     const result = await response.json();
     if (!response.ok) {
       throw new Error(result.error || "Could not save setting");
     }
-    elements.timePerSide.value = result.time_per_side_minutes;
     elements.formMessage.textContent = "Rotation schedule saved.";
     await refreshStatus();
   } catch (error) {

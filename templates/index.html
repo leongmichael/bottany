@@ -92,7 +92,10 @@
               step="0.1"
               required
             >
-            <span>minutes</span>
+            <select id="time-unit" aria-label="Time unit">
+              <option value="minutes">minutes</option>
+              <option value="seconds">seconds</option>
+            </select>
             <button type="submit">Save setting</button>
           </div>
           <p class="form-message" id="form-message" aria-live="polite"></p>
