@@ -1,0 +1,6 @@
+# MOTOR PORTS GPIO
+
+# motor 1
+ENA1 = 18
+IN1 = 27
+IN2 = 17
