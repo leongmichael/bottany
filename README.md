@@ -1,7 +1,7 @@
 # Bottany - Plant Sunlight Tracker (HackIOT 2026 Submission)
 
-A Raspberry Pi sunlight-following controller and web dashboard. Two digital LDR
-modules steer an L298N-driven DC motor toward the active side, while an MG90S
+A Raspberry Pi sunlight-following robot controller and web dashboard. Two digital LDR
+modules steer L298N-driven DC motors toward the active side, while an MG90S
 servo rotates the plant 180 degrees on a configurable schedule.
 
 ![Plant Light Tracker dashboard](dashboard.png)
