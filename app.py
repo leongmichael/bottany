@@ -41,7 +41,7 @@ def create_app(
     app = Flask(__name__)
     settings = load_settings()
     if controller is None:
-        mock_hardware = os.environ.get("BOTANY_MOCK_GPIO") == "1"
+        mock_hardware = os.environ.get("BOTTANY_MOCK_GPIO") == "1"
         controller = PlantController(
             interval_minutes=settings["time_per_side_minutes"],
             mock_hardware=mock_hardware,

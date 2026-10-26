@@ -1,8 +1,10 @@
-# Plant Light Tracker
+# Bottany - Plant Sunlight Tracker (HackIOT 2026 Submission)
 
-A Raspberry Pi light-following controller and web dashboard. Two digital LDR
+A Raspberry Pi sunlight-following controller and web dashboard. Two digital LDR
 modules steer an L298N-driven DC motor toward the active side, while an MG90S
 servo rotates the plant 180 degrees on a configurable schedule.
+
+![Plant Light Tracker dashboard](dashboard.png)
 
 ## Behavior
 
@@ -72,7 +74,7 @@ Press `Ctrl+C` to stop the app and release the GPIO devices.
 To view the dashboard without activating hardware:
 
 ```bash
-BOTANY_MOCK_GPIO=1 python3 app.py
+BOTTANY_MOCK_GPIO=1 python3 app.py
 ```
 
 The dashboard setting is stored locally in `settings.json`.
